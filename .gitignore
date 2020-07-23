@@ -1,0 +1,10 @@
+#data files
+1/
+2/
+vcf/
+misc/
+
+.Rproj.user/
+.RData
+.Rhistory
+*.Rproj
