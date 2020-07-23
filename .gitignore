@@ -4,7 +4,9 @@
 vcf/
 misc/
 
-.Rproj.user/
+.Rproj.user
 .RData
 .Rhistory
 *.Rproj
+
+/out
