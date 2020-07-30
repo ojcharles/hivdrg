@@ -1,0 +1,39 @@
+Package: hivdrg
+Type: Package
+Title: HIV Drug Resistance Genotyping
+Version: 0.1
+Authors@R: c(person("OJ", "Charles", email = "oscar.charles.18@ucl.ac.uk", role = c("aut", "cre")))
+Maintainer: Charles OJ <oscar.charles.18@ucl.ac.uk>
+Description: Resistance Genotyping tool for HIV sequencing data
+    Cite: Please cite us in your work, if you used this tool or database.
+License: GPL-3 + file LICENSE
+Encoding: UTF-8
+biocViews:
+Depends:
+  R (>= 3.6.3)
+Imports:
+	  VariantAnnotation,
+    stringr,
+    reshape2,
+    Biostrings,
+    dplyr,
+    IRanges,
+    GenomicRanges,
+    GenomeInfoDb,
+    GenomicFeatures,
+    Rsamtools,
+    readr,
+    ggrepel,
+    AnnotationDbi,
+    S4Vectors,
+    utils,
+    rlang,
+    magrittr
+Suggests: 
+    knitr,
+    rmarkdown,
+    testthat
+VignetteBuilder: knitr
+RoxygenNote: 7.1.1
+URL: https://github.com/ojcharles/hivdrg
+BugReports: https://github.com/ojcharles/hivdrg/issues

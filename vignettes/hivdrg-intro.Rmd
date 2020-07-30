@@ -1,0 +1,79 @@
+---
+title: "hivdrg-intro"
+author: "OJ Charles"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{cmvdrg-intro}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+```{r setup, message=F}
+library(hivdrg)
+```
+
+
+## Call resistance mutations from cmvdrg
+
+```{r, message=F}
+# load some test data, bundled in the package. also included: example.fa
+my_sample = system.file("testdata", "example.vcf", package = "hivdrg")
+
+# call variants from the file also present in the cmvdrg database.
+data = call_resistance(infile = my_sample, all_mutations = T)
+
+# highlight resistance to Ganciclovir
+print(data[,c("change", "freq", "Ganciclovir")])
+
+```
+
+
+## View all mutations
+
+It may be the case that your sequences contain nonsynonymous mutations in resistance genes, that may confer changes in resultant protein. Although there are many mutations accounted for in this database, of course there is a possibility to observe something novel. The call_resistance function allows for these sorts of questions.
+```{r, message=F}
+
+# returns all variants, with any resistance data, with annotation of protein coded for & if it coded for a change in protein sequence.
+mutations_all = call_resistance(infile = my_sample, all_mutations = T)
+
+
+# to view all mutations in resistance genes we can use base R to filter.
+mutations_res = mutations_all[mutations_all$GENEID %in% c("UL54", "UL97", "UL27", "UL51", "UL56", "UL89"),]
+
+
+# are there any non-synonymous (DNA variants that result in a change of amino acid) variants in resistance genes.
+mutations_res_nonsyn = mutations_res[mutations_res$CONSEQUENCE == "nonsynonymous",]
+
+
+# here the top 3 mutations are nonsynonymous, with no identified resistance effect.
+head(mutations_res_nonsyn)
+
+```
+
+as you can see, there are a number of variants in resistance genes that result in a change of protein sequence, and may deserve attention.
+
+## Visualise
+
+```{r}
+
+# Generate a condensed output for the sample
+make_clin_table(data)
+
+```
+
+
+
+## Run the shiny app
+```{R}
+# runShinyCMV()
+
+```

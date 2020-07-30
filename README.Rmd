@@ -1,12 +1,5 @@
 # hivdrg
-HIV (K03455.1 assembled) VCF to synonymous / non synonymous app for PANGEA project
 
-
-
-
-<!-- README.md is generated from README.Rmd. Please edit that file -->
-
-# cmvdrg
 
 <!-- badges: start -->
 
@@ -20,46 +13,33 @@ size](https://img.shields.io/github/repo-size/ucl-pathgenomics/cmvdrg.svg)
 bytes](https://img.shields.io/github/languages/code-size/ucl-pathgenomics/cmvdrg.svg)
 <!-- badges: end -->
 
-## overview
 
-cmvdrg is a R package to enable antiviral drug resistance genotyping,
-with Human Cytomegalovirus sequencing data. Accepted inputs are FASTA
-(whole genomes & fragments) which will be mapped to RefSeq NC\_006273.2.
-NGS variant data assembled to NC\_006273.2 is accepted in VCF \>= ver4.0
+## overview
+hivdrg is a R package to enable antiviral drug resistance genotyping,
+with HIV sequencing data. Accepted inputs are FASTA
+(whole genomes & fragments) which will be mapped to RefSeq K03455.1.
+NGS variant data assembled to K03455.1 is accepted in VCF \>= ver4.0
 & Varscan2 tab formats.
+VCF to synonymous / non synonymous app for PANGEA project
 
 #### Database
-
-Contains the relationships between:
-
-  - Mutation
-  - Drug susceptibility, values are EC50 fold changes to susceptible
-    strains. “Susceptible” or “Resistant” are present if data is
-    anecdotal.
-  - The method for Resistance Phenotyping, including where possible
-    strain information used in marker transfer. i.e. AD169, TOWNE.
-  - Publication reference, DOI, web address & review paper reference if
-    used.
-  - Where a co-mutation susceptibility profile is available for a known
-    drug, this is included.
-  - Administrative information, last update to row & whether itis used
-    in calculations or not. i.e. A “Active”" is included, where there is
-    ambiguity the status field is “U” Unused, or “R” to Review
+A text database extracted in July 2020 from the Stanford resistance database.
+Shafer RW(2006). Rationale and Uses of a Public HIV Drug-Resistance Database. Journal of Infectious Diseases 194 Suppl 1:S51-8
 
 #### Web service
-
+ // todo
 A user-friendly Shiny Applications has been bundled with this package.
 The same application is available over the internet here
 <http://51.11.13.133:3838/cmvdrg/> where the terms of use are contained.
 
 ## Installation
 
-You can install the current version from
-[GitHub](https://github.com/ucl-pathgenomics/cmvdrg) with:
+You can install the current version from with:
+[GitHub](https://github.com/ojcharles/hivdrg) 
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("ucl-pathgenomics/cmvdrg")
+devtools::install_github("ojcharles/hivdrg")
 ```
 
 Dependencies for FASTA file handling are MAFFT and SNP-Sites available
@@ -74,12 +54,12 @@ conda install mafft
 ## Usage
 
 ``` r
-library("cmvdrg")
+library("hivdrg")
 
 ## Call resistant only variants
 
 
-my_sample = system.file("testdata", "A10.vcf", package = "cmvdrg")
+my_sample = system.file("testdata", "example.vcf", package = "hivdrg")
 
 
 data = call_resistance(infile = my_sample, all_mutations = F)
