@@ -23,7 +23,6 @@ Imports:
     GenomicFeatures,
     Rsamtools,
     readr,
-    ggrepel,
     AnnotationDbi,
     S4Vectors,
     utils,

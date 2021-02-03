@@ -38,5 +38,6 @@ call_resistance = function(infile = system.file("testdata",  "example.vcf", pack
   # clean data
   dat3$gene = NULL
   dat3$mutation = NULL
+  dat3$CDSID = NULL
   return(dat3)
 }
