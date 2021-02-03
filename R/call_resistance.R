@@ -18,7 +18,7 @@ call_resistance = function(infile = system.file("testdata",  "example.vcf", pack
   
   #package variables
   global = list()
-  global$res_table = system.file("db", "resmuts.csv", package = "hivdrg")
+  global$res_table = system.file("db", "resmuts2.csv", package = "hivdrg")
   #create unique session folder
   global$date <- format(Sys.time(), "%Y-%m-%d")
   global$dir = outdir
