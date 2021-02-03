@@ -29,7 +29,6 @@ call_resistance = function(infile = system.file("testdata",  "example.vcf", pack
   
   
   dat1 = read_input(infile, global = global)
-  
   ### annotate variants
   dat2 <- annotate_variants(f.dat = dat1, global = global)
   
@@ -39,6 +38,5 @@ call_resistance = function(infile = system.file("testdata",  "example.vcf", pack
   # clean data
   dat3$gene = NULL
   dat3$mutation = NULL
-  
   return(dat3)
 }
