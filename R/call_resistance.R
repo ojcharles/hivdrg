@@ -14,7 +14,7 @@
 #' @return A data.frame containing resistance information for variants identified
 #' @export
 
-call_resistance = function(infile = system.file("testdata",  "example.vcf", package = "hivdrg"), all_mutations = FALSE, outdir = ""){
+call_resistance = function(infile = system.file("testdata",  "example.vcf", package = "hivdrg"), all_mutations = TRUE, outdir = ""){
   
   #package variables
   global = list()
@@ -28,7 +28,6 @@ call_resistance = function(infile = system.file("testdata",  "example.vcf", pack
   global$path_txdb=system.file("ref", "K03455.1.sqlite", package = "hivdrg")
   
   
-  infile = "inst/testdata/example.vcf"
   dat1 = read_input(infile, global = global)
   
   ### annotate variants
@@ -37,7 +36,9 @@ call_resistance = function(infile = system.file("testdata",  "example.vcf", pack
   ### add res info
   dat3 <- add_resistance_info(f.dat = dat2, resistance_table=global$res_table, all_muts = all_mutations)
   
-  dat3=dat3
+  # clean data
+  dat3$gene = NULL
+  dat3$mutation = NULL
   
   return(dat3)
 }

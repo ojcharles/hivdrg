@@ -13,12 +13,13 @@
 add_resistance_info <-
   function(f.dat,
            resistance_table,
-           all_muts = FALSE) {
+           all_muts = TRUE) {
     coding_df <- f.dat
     resistance = utils::read.csv(resistance_table, header = TRUE, as.is = TRUE)
     
     # filter status - records on-revision may be below the data quality we expect, and are flagged.
     resistance$change <- paste(resistance$gene, resistance$mutation, sep = "_")
+    resistance$phenotype = "Resistant"
     
     
     # merge resistance & mutation data
