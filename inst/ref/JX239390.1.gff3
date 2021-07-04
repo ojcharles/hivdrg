@@ -1,0 +1,12 @@
+##sequence-region JX239390.1 1 2553
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=11676
+JX239390.1	Genbank	region	1	2553	.	+	.	ID=JX239390.1:1..2553;Dbxref=taxon:11676;collection-date=12-Apr-2006;country=Zambia;gb-acronym=HIV-1;gbkey=Src;genome=proviral;isolate=ZM282M_12APR06_PB7;mol_type=genomic DNA;nat-host=Homo sapiens;subtype=C
+JX239390.1	Genbank	gene	1	2553	.	+	.	ID=gene-env;Name=env;gbkey=Gene;gene=env;gene_biotype=protein_coding
+JX239390.1	Genbank	CDS	1	2553	.	+	0	ID=cds-AFN81841.1;Parent=gene-env;Dbxref=NCBI_GP:AFN81841.1;Name=AFN81841.1;gbkey=CDS;gene=env;product=envelope glycoprotein;protein_id=AFN81841.1
+JX239390.1	Genbank	gene	1	80	.	+	.	ID=gene-vpu;Name=vpu;gbkey=Gene;gene=vpu;gene_biotype=protein_coding;partial=true;start_range=.,1
+JX239390.1	Genbank	CDS	1	80	.	+	2	ID=cds-AFN81840.1;Parent=gene-vpu;Dbxref=NCBI_GP:AFN81840.1;Name=AFN81840.1;gbkey=CDS;gene=vpu;partial=true;product=vpu protein;protein_id=AFN81840.1;start_range=.,1
+JX239390.1	Genbank	gene	2116	2363	.	+	.	ID=gene-rev;Name=rev;gbkey=Gene;gene=rev;gene_biotype=protein_coding;partial=true;start_range=.,2116
+JX239390.1	Genbank	CDS	2116	2363	.	+	2	ID=cds-AFN81839.1;Parent=gene-rev;Dbxref=NCBI_GP:AFN81839.1;Name=AFN81839.1;gbkey=CDS;gene=rev;partial=true;product=rev protein;protein_id=AFN81839.1;start_range=.,2116
+JX239390.1	Genbank	gene	2116	2206	.	+	.	ID=gene-tat;Name=tat;gbkey=Gene;gene=tat;gene_biotype=protein_coding;partial=true;start_range=.,2116
+JX239390.1	Genbank	CDS	2116	2206	.	+	1	ID=cds-AFN81838.1;Parent=gene-tat;Dbxref=NCBI_GP:AFN81838.1;Name=AFN81838.1;gbkey=CDS;gene=tat;partial=true;product=tat protein;protein_id=AFN81838.1;start_range=.,2116
+
