@@ -6,8 +6,8 @@
 \usage{
 call_resistance(
   infile = system.file("testdata", "example.vcf", package = "hivdrg"),
-  all_mutations = FALSE,
-  inc_anecdotal = FALSE,
+  all_mutations = TRUE,
+  ref = 5,
   outdir = ""
 )
 }
@@ -16,7 +16,7 @@ call_resistance(
 
 \item{all_mutations}{when FALSE only recognised resistant variants present are returned.}
 
-\item{inc_anecdotal}{include anectodat database entries in returned results?}
+\item{ref}{a choice of 5 HIV representative genomes, pass a number 1-5,  "AG_L39106.1","C_AF067155.1","G_U88826.1", "JX239390.1","K03455.1"}
 
 \item{outdir}{for fasta input files intermediate alignment fasta & vcf files are generated, this defines the directory they are saved to. "out.fasta" "out.vcf"}
 }

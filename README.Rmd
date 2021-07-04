@@ -37,23 +37,23 @@ The same application is available over the internet here
 You can install the current version from with:
 [GitHub](https://github.com/ojcharles/hivdrg) 
 
-``` r
+```{r}
 # install.packages("devtools")
-devtools::install_github("ojcharles/hivdrg")
+# devtools::install_github("ojcharles/hivdrg")
 ```
 
 Dependencies for FASTA file handling are MAFFT and SNP-Sites available
 preferably via conda. snp-sites \>= 2.3 has been tested.
 
-``` bash
-conda config --add channels bioconda
-conda install snp-sites
-conda install mafft
+```{bash}
+#conda config --add channels bioconda
+#conda install snp-sites
+#conda install mafft
 ```
 
 ## Usage
 
-``` r
+``` {r}
 library("hivdrg")
 
 ## Call resistant only variants
@@ -62,7 +62,7 @@ library("hivdrg")
 my_sample = system.file("testdata", "example.vcf", package = "hivdrg")
 
 
-data = call_resistance(infile = my_sample, all_mutations = F)
+data = call_resistance(infile = my_sample, all_mutations = F, ref = 5)
 
 
 print(data[,c("change", "freq", "Ganciclovir")])

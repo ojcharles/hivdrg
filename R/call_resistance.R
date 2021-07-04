@@ -9,23 +9,30 @@
 #'
 #' @param infile the input fasta, vcf or varscan.tab file
 #' @param all_mutations when FALSE only recognised resistant variants present are returned.
-#' @param inc_anecdotal include anectodat database entries in returned results?
 #' @param outdir for fasta input files intermediate alignment fasta & vcf files are generated, this defines the directory they are saved to. "out.fasta" "out.vcf"
+#' @param ref a choice of 5 HIV representative genomes, pass a number 1-5,  "AG_L39106.1","C_AF067155.1","G_U88826.1", "JX239390.1","K03455.1"
 #' @return A data.frame containing resistance information for variants identified
 #' @export
 
-call_resistance = function(infile = system.file("testdata",  "example.vcf", package = "hivdrg"), all_mutations = TRUE, outdir = ""){
+
+call_resistance = function(infile = system.file("testdata",  "example.vcf", package = "hivdrg"), all_mutations = TRUE, ref = 5,  outdir = ""){
+  print("ref should be an integer between 1 and 5, used to identify the HIV reference genome below")
+  print(c("AG_L39106.1","C_AF067155.1","G_U88826.1", "JX239390.1","K03455.1"))
   
-  #package variables
+  # checks
+  if(ref < 1 | ref > 5){
+    stop('ref not between 1 and r')
+  }
+  
   global = list()
   global$res_table = system.file("db", "resmuts2.csv", package = "hivdrg")
   #create unique session folder
   global$date <- format(Sys.time(), "%Y-%m-%d")
   global$dir = outdir
-  global$genome = genome="K03455.1"
-  global$path_gff3_file=system.file("ref", "K03455.1.gff3", package = "hivdrg")
-  global$path_fasta_file=system.file("ref", "K03455.1.fasta", package = "hivdrg")
-  global$path_txdb=system.file("ref", "K03455.1.sqlite", package = "hivdrg")
+  global$genome = c("AG_L39106.1","C_AF067155.1","G_U88826.1", "JX239390.1","K03455.1")[ref]
+  global$path_gff3_file=system.file("ref", paste0(global$genome,".gff3"), package = "hivdrg")
+  global$path_fasta_file=system.file("ref", paste0(global$genome,".fasta"), package = "hivdrg")
+  global$path_txdb=system.file("ref", paste0(global$genome,".sqlite"), package = "hivdrg")
   
   
   dat1 = read_input(infile, global = global)
