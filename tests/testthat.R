@@ -1,4 +1,4 @@
 library(testthat)
-library(cmvdrg)
+library(hivdrg)
 
-test_check("cmvdrg")
+test_check("hivdrg")

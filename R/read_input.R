@@ -15,7 +15,7 @@ read_input <- function(f.infile, global){
   if(tools::file_ext(f.infile) == "tab"){
     #if file appears as a varscan tab file
     # delimit
-    tab.dat <- read.table(file = f.infile, header = T, as.is = T, sep = "\t")
+    tab.dat <- utils::read.table(file = f.infile, header = T, as.is = T, sep = "\t")
     out <- read_varscan_data(tab.dat)
   }
   ### vcf ###
@@ -23,7 +23,7 @@ read_input <- function(f.infile, global){
     
     text <- readLines(f.infile)
     start <- grep('chrom',ignore.case = T, text)
-    vcf = read.delim(f.infile, sep = "\t", as.is = T, skip = start - 1)
+    vcf = utils::read.delim(f.infile, sep = "\t", as.is = T, skip = start - 1)
     
     # steves vcf files are occasionally ...dodge
     vcf = vcf[grepl(pattern = ".{15,100}",vcf[,10]),] # where the final info column is actually legitimate
@@ -83,7 +83,7 @@ read_input <- function(f.infile, global){
     
     text <- readLines(vcf_file)
     start <- grep('chrom',ignore.case = T, text)
-    vcf = read.delim(vcf_file, sep = "\t", as.is = T, skip = start - 1)
+    vcf = utils::read.delim(vcf_file, sep = "\t", as.is = T, skip = start - 1)
     
     # if has a format column & genotype column, split to extract ref.count, var.count per position
     for(i in 1:nrow(vcf)){#clean up vcf indel format to be as in varscan tab

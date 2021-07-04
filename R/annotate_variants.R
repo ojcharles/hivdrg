@@ -13,7 +13,7 @@ annotate_variants <- function(f.dat,global){
   gr <- GenomicRanges::GRanges(seqnames = global$genome ,ranges=check)
   S4Vectors::values(gr) <- S4Vectors::DataFrame(id = toannotate$Sample, freq = toannotate$VarFreq, RefCount= toannotate$Ref.count, VarCount= toannotate$Var.count, VarAllele=toannotate$Var)
   varallele <- Biostrings::DNAStringSet(toannotate$Var)
-  txdb <- suppressMessages(makeTxDbFromGFF(file=global$path_gff3_file, format="gff3")) # takes 1 sec, save and load.
+  txdb <- suppressMessages(GenomicFeatures::makeTxDbFromGFF(file=global$path_gff3_file, format="gff3")) # takes 1 sec, save and load.
   #txdb <- AnnotationDbi::loadDb(global$path_txdb)
   gn <- GenomicFeatures::genes(txdb)
   ##variant data
