@@ -1,17 +1,21 @@
-# hivdrg
+---
+title: "hivdrg-intro"
+author: "OJ Charles"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{herpesdrg-intro}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
 
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
 
-<!-- badges: start -->
-
-[![Travis build
-status](https://travis-ci.com/ucl-pathgenomics/cmvdrg.svg?branch=master)](https://travis-ci.com/ucl-pathgenomics/cmvdrg)
-[![minimal R
-version](https://img.shields.io/badge/R%3E%3D-3.4.0-6666ff.svg)](https://cran.r-project.org/)
-![GitHub repo
-size](https://img.shields.io/github/repo-size/ucl-pathgenomics/cmvdrg.svg)
-![GitHub code size in
-bytes](https://img.shields.io/github/languages/code-size/ucl-pathgenomics/cmvdrg.svg)
-<!-- badges: end -->
 
 
 ## overview
@@ -33,7 +37,7 @@ You can install the current version from with:
 [GitHub](https://github.com/ojcharles/hivdrg) 
 
 ```{r  eval = FALSE, echo = FALSE}
-install.packages("devtools")
+# install.packages("devtools")
 devtools::install_github("ojcharles/hivdrg")
 ```
 
@@ -58,7 +62,6 @@ my_sample = system.file("testdata", "example.vcf", package = "hivdrg")
 
 # hivdrg provides the following function to return a table of annotated variants
 data = call_resistance(infile = my_sample, all_mutations = F, ref = 5)
-
 
 head(data[,c("GENEID","aachange", "freq", "phenotype")])
 
