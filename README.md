@@ -1,70 +1,29 @@
-# In Developement #
+
 # hivdrg
-HIV (K03455.1 assembled) VCF to synonymous / non synonymous app for PANGEA project
-
-
-
-
-<!-- README.md is generated from README.Rmd. Please edit that file -->
-
-# cmvdrg
-
-<!-- badges: start -->
-
-[![Travis build
-status](https://travis-ci.com/ucl-pathgenomics/cmvdrg.svg?branch=master)](https://travis-ci.com/ucl-pathgenomics/cmvdrg)
-[![minimal R
-version](https://img.shields.io/badge/R%3E%3D-3.4.0-6666ff.svg)](https://cran.r-project.org/)
-![GitHub repo
-size](https://img.shields.io/github/repo-size/ucl-pathgenomics/cmvdrg.svg)
-![GitHub code size in
-bytes](https://img.shields.io/github/languages/code-size/ucl-pathgenomics/cmvdrg.svg)
-<!-- badges: end -->
 
 ## overview
 
-cmvdrg is a R package to enable antiviral drug resistance genotyping,
-with Human Cytomegalovirus sequencing data. Accepted inputs are FASTA
-(whole genomes & fragments) which will be mapped to RefSeq NC\_006273.2.
-NGS variant data assembled to NC\_006273.2 is accepted in VCF \>= ver4.0
-& Varscan2 tab formats.
+hivdrg is a R package to enable synonymous / non-synonymous
+characterisation of HIV genetic data for the PANGEA project. Also
+provides HIV antiviral drug resistance genotyping. Accepted inputs are
+FASTA (whole genomes & fragments) which will be mapped to selected
+reference NGS variant data assembled to a supported reference is
+accepted in VCF &gt;= ver4.0 & Varscan2 tab formats.
 
 #### Database
 
-Contains the relationships between:
-
-  - Mutation
-  - Drug susceptibility, values are EC50 fold changes to susceptible
-    strains. “Susceptible” or “Resistant” are present if data is
-    anecdotal.
-  - The method for Resistance Phenotyping, including where possible
-    strain information used in marker transfer. i.e. AD169, TOWNE.
-  - Publication reference, DOI, web address & review paper reference if
-    used.
-  - Where a co-mutation susceptibility profile is available for a known
-    drug, this is included.
-  - Administrative information, last update to row & whether itis used
-    in calculations or not. i.e. A “Active”" is included, where there is
-    ambiguity the status field is “U” Unused, or “R” to Review
-
-#### Web service
-
-A user-friendly Shiny Applications has been bundled with this package.
-The same application is available over the internet here
-<http://51.11.13.133:3838/cmvdrg/> where the terms of use are contained.
+A text database extracted in July 2020 from the Stanford resistance
+database. Shafer RW(2006). Rationale and Uses of a Public HIV
+Drug-Resistance Database. Journal of Infectious Diseases 194 Suppl
+1:S51-8
 
 ## Installation
 
-You can install the current version from
-[GitHub](https://github.com/ucl-pathgenomics/cmvdrg) with:
-
-``` r
-# install.packages("devtools")
-devtools::install_github("ucl-pathgenomics/cmvdrg")
-```
+You can install the current version from with:
+[GitHub](https://github.com/ojcharles/hivdrg)
 
 Dependencies for FASTA file handling are MAFFT and SNP-Sites available
-preferably via conda. snp-sites \>= 2.3 has been tested.
+preferably via conda. snp-sites &gt;= 2.3 has been tested.
 
 ``` bash
 conda config --add channels bioconda
@@ -72,70 +31,55 @@ conda install snp-sites
 conda install mafft
 ```
 
-## Usage
+## Usage - resistance genotyping
+
+note: there are 5 supported variants in hivdrg, vcf and tab files must
+be assembled against one of these. fasta files will be aligned to the
+chosen reference and variants called.
 
 ``` r
-library("cmvdrg")
+library("hivdrg")
 
-## Call resistant only variants
+# select a fasta, vcf, or varscan tab file
+my_sample = system.file("testdata", "example.vcf", package = "hivdrg")
 
-
-my_sample = system.file("testdata", "A10.vcf", package = "cmvdrg")
-
-
-data = call_resistance(infile = my_sample, all_mutations = F)
-
-
-print(data[,c("change", "freq", "Ganciclovir")])
-#>        change   freq Ganciclovir
-#> 1  UL54_D588N   5.2%           2
-#> 2  UL54_D588N   5.2%         3.8
-#> 3  UL54_N685S   100% Susceptible
-#> 4  UL54_S655L   100% Susceptible
-#> 5  UL97_C592G 10.77%         2.9
-#> 6  UL97_C592G 10.77%           3
-#> 7  UL97_C592G 10.77%           3
-#> 8  UL97_H411Y  1.69%            
-#> 9  UL97_H411Y  1.69%         0.5
-#> 10 UL97_T409M 37.13%            
-#> 11 UL97_T409M 37.13%         0.9
+# hivdrg provides the following function to return a table of annotated variants
+data = call_resistance(infile = my_sample, all_mutations = F, ref = 5)
+#> [1] "ref should be an integer between 1 and 5, used to identify the HIV reference genome below"
+#> [1] "AG_L39106.1"  "C_AF067155.1" "G_U88826.1"   "JX239390.1"   "K03455.1"
 
 
+head(data[,c("GENEID","aachange", "freq", "phenotype")])
+#>   GENEID aachange   freq phenotype
+#> 1     rt    K103N 91.86% Resistant
+#> 2     rt    K238T   1.9% Resistant
+#> 3     rt    M184V 56.97% Resistant
+#> 4     rt    P225H 20.85% Resistant
+```
 
+## Usage - synonymous / non-synonymous characterisation
 
+``` r
 ## call all variants
 
-mutations_all = call_resistance(infile = my_sample, all_mutations = T)
-
-
-# to view all mutations only resistance genes we filter
-mutations_res = mutations_all[mutations_all$GENEID %in% c("UL54", "UL97", "UL27", "UL51", "UL56", "UL89"),]
+mutations_all = call_resistance(infile = my_sample, all_mutations = T,ref = 5)
+#> [1] "ref should be an integer between 1 and 5, used to identify the HIV reference genome below"
+#> [1] "AG_L39106.1"  "C_AF067155.1" "G_U88826.1"   "JX239390.1"   "K03455.1"
 
 
 # are there any non-synonymous (DNA variants that result in a change of amino acid) variants in resistance genes
-mutations_res_nonsyn = mutations_res[mutations_res$CONSEQUENCE == "nonsynonymous",]
+mutations_nonsyn = mutations_all[mutations_all$CONSEQUENCE == "nonsynonymous",]
 
 
 # here the top 3 mutations are nonsynonymous, with no identified resistance effect.
-head(mutations_res_nonsyn[,c(1,8,21,32:40)])
-#>           change   freq   CONSEQUENCE Ganciclovir Cidofovir Foscarnet
-#> 996    UL51_T47M 99.88% nonsynonymous        <NA>      <NA>      <NA>
-#> 1002 UL54_A1108T 99.05% nonsynonymous        <NA>      <NA>      <NA>
-#> 1004  UL54_A692V   100% nonsynonymous        <NA>      <NA>      <NA>
-#> 1007  UL54_D588N   5.2% nonsynonymous           2       1.3       2.8
-#> 1008  UL54_D588N   5.2% nonsynonymous         3.8       2.7     3.2-9
-#> 1018  UL54_L897S 99.82% nonsynonymous        <NA>      <NA>      <NA>
-#>      Brincidofovir Letermovir Tomeglovir GW275175 Maribavir Cyclopropavir
-#> 996             NA       <NA>         NA       NA      <NA>            NA
-#> 1002            NA       <NA>         NA       NA      <NA>            NA
-#> 1004            NA       <NA>         NA       NA      <NA>            NA
-#> 1007            NA                    NA       NA                      NA
-#> 1008            NA                    NA       NA                      NA
-#> 1018            NA       <NA>         NA       NA      <NA>            NA
-
-
-## run the shiny application
-# runShinyCMV()
+head(mutations_nonsyn[,c("GENEID","aachange", "freq", "CONSEQUENCE","phenotype")])
+#>    GENEID aachange   freq   CONSEQUENCE phenotype
+#> 2      rt    D250E 59.64% nonsynonymous      <NA>
+#> 5      rt    I178V  1.27% nonsynonymous      <NA>
+#> 7      rt    K103N 91.86% nonsynonymous Resistant
+#> 8      rt    K103R  1.01% nonsynonymous      <NA>
+#> 11     rt    K238T   1.9% nonsynonymous Resistant
+#> 14     rt    M184V 56.97% nonsynonymous Resistant
 ```
 
 ## Getting help
@@ -143,4 +87,4 @@ head(mutations_res_nonsyn[,c(1,8,21,32:40)])
 If you encounter a clear bug, please file an issue with a minimal
 reproducible example on the GitHub Issues page. For questions and other
 discussions feel free to contact. [Oscar Charles -
-maintainer](mailto:oscar.charles.18@ucl.ac.uk)
+Developer](mailto:oscar.charles.18@ucl.ac.uk)

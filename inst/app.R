@@ -22,7 +22,7 @@ server <- function(input, output, session) {
   #output$text = renderText(input$infiles[1])
     
     
-  output$download <- downloadHandler(
+  output$download <- shiny::downloadHandler(
     filename = function(){
       paste0("hivdrg_",Sys.Date(),".zip")
 
@@ -42,11 +42,11 @@ server <- function(input, output, session) {
         fileName <- paste(basename(npath),".csv",sep = "")
         a = hivdrg::call_resistance(dpath)
         a = cbind(filename = npath[i], a)
-        write.csv(a, fileName)
+        utils::write.csv(a, fileName)
         outfiles <- c(fileName,outfiles)
       }
       #create the zip file
-      zip(file,outfiles)
+      utils::zip(file,outfiles)
     }
   )
 

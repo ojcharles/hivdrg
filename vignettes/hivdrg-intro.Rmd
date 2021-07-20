@@ -1,17 +1,20 @@
 ---
-output: github_document
+title: "hivdrg-intro"
+author: "OJ Charles"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{herpesdrg-intro}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>",
-  fig.path = "man/figures/README-",
-  out.width = "100%"
+  comment = "#>"
 )
 ```
-
-# hivdrg
 
 
 
@@ -34,7 +37,7 @@ You can install the current version from with:
 [GitHub](https://github.com/ojcharles/hivdrg) 
 
 ```{r  eval = FALSE, echo = FALSE}
-install.packages("devtools")
+# install.packages("devtools")
 devtools::install_github("ojcharles/hivdrg")
 ```
 
@@ -59,7 +62,6 @@ my_sample = system.file("testdata", "example.vcf", package = "hivdrg")
 
 # hivdrg provides the following function to return a table of annotated variants
 data = call_resistance(infile = my_sample, all_mutations = F, ref = 5)
-
 
 head(data[,c("GENEID","aachange", "freq", "phenotype")])
 
