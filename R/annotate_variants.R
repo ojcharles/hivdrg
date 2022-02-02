@@ -8,6 +8,8 @@
 #' 
 
 annotate_variants <- function(f.dat,global){
+  # cannot handle ambiguous bases
+  f.dat = f.dat[f.dat$Var %in% c("A", "C", "G", "T"),]
   toannotate <- f.dat
   check <- IRanges::IRanges(start=toannotate$Position, end=toannotate$Position, width=1)
   gr <- GenomicRanges::GRanges(seqnames = global$genome ,ranges=check)
