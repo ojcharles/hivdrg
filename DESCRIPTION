@@ -1,7 +1,7 @@
 Package: hivdrg
 Type: Package
 Title: HIV Drug Resistance Genotyping
-Version: 0.1
+Version: 0.2
 Authors@R: c(person("OJ", "Charles", email = "oscar.charles.18@ucl.ac.uk", role = c("aut", "cre")))
 Maintainer: Charles OJ <oscar.charles.18@ucl.ac.uk>
 Description: Resistance Genotyping tool for HIV sequencing data
