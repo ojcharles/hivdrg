@@ -25,8 +25,14 @@ read_input <- function(f.infile, global){
     start <- grep('chrom',ignore.case = T, text)
     vcf = utils::read.delim(f.infile, sep = "\t", as.is = T, skip = start - 1)
     
+    # the column names can alter
+    col.pos = grep("POS|Pos|pos" , colnames(vcf))
+    col.ref = grep("REF|Ref|ref" , colnames(vcf))
+    col.var = grep("ALT|Alt|alt|CONS|Cons|cons" , colnames(vcf))
+
+    
     # steves vcf files are occasionally ...dodge
-    vcf = vcf[grepl(pattern = ".{15,100}",vcf[,10]),] # where the final info column is actually legitimate
+    #vcf = vcf[grepl(pattern = ".{15,100}",vcf[,10]),] # where the final info column is actually legitimate
     vcf = vcf[!grepl(pattern = "\\.",vcf[,5]),] # remove any positions with alt variant of . - this seems obvious. remvoes on variants
     
     
@@ -34,18 +40,18 @@ read_input <- function(f.infile, global){
     # get format column
     t.col = grep(pattern = "FORMATa",x = names(vcf))
     
-    if(length(vcf[,9]) > 0){ # if has a format column & genotype column, split to extract ref.count, var.count per position
-      vcf.num_format = as.numeric(length(unlist(strsplit(vcf[1,9], split=":"))))
-      t.1 <- as.data.frame(matrix(unlist(strsplit(vcf[,10], split=":")), ncol=vcf.num_format, byrow="T"), stringsAsFactors=F)
-      colnames(t.1) <- unlist(strsplit(vcf[1,9], split=":"))
+    if( length(vcf[,9]) > 0 ){ # if has a format column & genotype column, split to extract ref.count, var.count per position
+      vcf.num_format = as.numeric(length(unlist(strsplit(as.character(vcf[1,9]), split=":"))))
+      t.1 <- as.data.frame(matrix(unlist(strsplit(as.character(vcf[,10]), split=":")), ncol=vcf.num_format, byrow="T"), stringsAsFactors=F)
+      colnames(t.1) <- unlist(strsplit(as.character(vcf[1,9]), split=":"))
       
     }else{
       stop("Check your variant call file has genotypic information, it mght be there but isnt in the standard format!")
     }
     
     for(i in 1:nrow(vcf)){#clean up vcf indel format to be as in varscan tab
-      ref = vcf$REF[i]
-      var = vcf$ALT[i]
+      ref = vcf[i, col.ref]
+      var = vcf[i, col.var]
       if(nchar(ref) > 1){#if deletion
         out.ref = var
         out.var = ref
@@ -62,9 +68,16 @@ read_input <- function(f.infile, global){
       }
     }
     
-    t.vcf <- data.frame(Position = vcf$POS,
-                        Ref = vcf$REF,
-                        Var = vcf$ALT,
+    # if t.1. only has 1 column, then this means there was no read depth data.
+    if( ncol(t.1) < 3){
+      t.1$RD = 1
+      t.1$AD = 1
+      t.1$FREQ = 100
+    }
+    
+    t.vcf <- data.frame(Position = vcf[,col.pos],
+                        Ref = vcf[,col.ref],
+                        Var = vcf[,col.var],
                         Ref.count = t.1$RD,
                         Var.count = t.1$AD,
                         VarFreq = t.1$FREQ,
@@ -105,9 +118,9 @@ read_input <- function(f.infile, global){
       }
     }
     
-    t.vcf <- data.frame(Position = vcf$POS,
-                        Ref = vcf$REF,
-                        Var = vcf$ALT,
+    t.vcf <- data.frame(Position = vcf[,col.pos],
+                        Ref = vcf[,col.ref],
+                        Var = vcf[,col.var],
                         Ref.count = vcf[,10], #diff from vcf proc
                         Var.count = vcf[,11], # diff from vcf proc
                         VarFreq = "100%",

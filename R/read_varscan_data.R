@@ -32,13 +32,13 @@ read_varscan_data <- function(f.df){
     all = data.frame(
       "Position" = dat[,2],
       "Ref" = dat[,3],
-      "Var" = dat[,4],
+      "Var" = dat[,19],
       "Ref.count" = dat[,5],
       "Var.count" = dat[,6],
       "VarFreq" = dat[,7],
       "Sample" = dat[,1]
     )
   }
-
+  
   return(all)
 }

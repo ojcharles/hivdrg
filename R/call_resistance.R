@@ -20,7 +20,7 @@ call_resistance = function(infile = system.file("testdata",  "example.vcf", pack
   print(c("AG_L39106.1","C_AF067155.1","G_U88826.1", "JX239390.1","K03455.1"))
   
   # checks
-  if(ref < 1 | ref > 5){
+  if(ref < 1 | ref > 6){
     stop('ref not between 1 and r')
   }
   
@@ -29,7 +29,7 @@ call_resistance = function(infile = system.file("testdata",  "example.vcf", pack
   #create unique session folder
   global$date <- format(Sys.time(), "%Y-%m-%d")
   global$dir = outdir
-  global$genome = c("AG_L39106.1","C_AF067155.1","G_U88826.1", "JX239390.1","K03455.1")[ref]
+  global$genome = c("AG_L39106.1","C_AF067155.1","G_U88826.1", "JX239390.1","K03455.1", "AF411967_steve")[ref]
   global$path_gff3_file=system.file("ref", paste0(global$genome,".gff3"), package = "hivdrg")
   global$path_fasta_file=system.file("ref", paste0(global$genome,".fasta"), package = "hivdrg")
   global$path_txdb=system.file("ref", paste0(global$genome,".sqlite"), package = "hivdrg")

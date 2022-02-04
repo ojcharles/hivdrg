@@ -35,6 +35,7 @@ add_resistance_info <-
       )
     }
     
+    coding_df_res$PROTEINLOC = as.numeric(coding_df_res$PROTEINLOC)
     
     #coding_df_res <- cbind(resistance_site,coding_df)
     return(coding_df_res)

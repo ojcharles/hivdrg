@@ -1,0 +1,23 @@
+##gff-version 3
+##source-version geneious 2022.0.2
+AF411967_steve	Geneious	region	1	9756	.	+	.	Name=source Human immunodeficiency virus 1
+AF411967_steve	Geneious	gene	789	2276	.	+	.	Name=gag;ID=gag
+AF411967_steve	Geneious	gene	2237	2533	.	+	.	Name=protease;ID=protease
+AF411967_steve	Geneious	gene	2534	3853	.	+	.	Name=rt;ID=rt
+AF411967_steve	Geneious	gene	4214	5080	.	+	.	Name=integrase;ID=integrase
+AF411967_steve	Geneious	gene	5025	5603	.	+	.	Name=vif;ID=vif
+AF411967_steve	Geneious	gene	5543	5833	.	+	.	Name=vpr;ID=vpr
+AF411967_steve	Geneious	gene	5953	8619	.	+	.	Name=rev;ID=rev
+AF411967_steve	Geneious	gene	6052	6306	.	+	.	Name=vpu;ID=vpu
+AF411967_steve	Geneious	gene	6230	8809	.	+	.	Name=env;ID=env
+AF411967_steve	Geneious	gene	8811	9455	.	+	.	Name=nef;ID=nef
+AF411967_steve	Geneious	CDS	789	2276	.	+	0	Name=gag CDS;Parent=gag
+AF411967_steve	Geneious	CDS	2237	2533	.	+	0	Name=protease CDS;Parent=protease
+AF411967_steve	Geneious	CDS	2534	3853	.	+	0	Name=rt CDS;Parent=rt
+AF411967_steve	Geneious	CDS	4214	5080	.	+	0	Name=integrase CDS;Parent=integrase
+AF411967_steve	Geneious	CDS	5025	5603	.	+	0	Name=vif CDS;Parent=vif
+AF411967_steve	Geneious	CDS	5543	5833	.	+	0	Name=vpr CDS;Parent=vpr
+AF411967_steve	Geneious	CDS	5953	8619	.	+	0	Name=rev CDS;Parent=rev
+AF411967_steve	Geneious	CDS	6230	8809	.	+	0	Name=env CDS;Parent=env
+AF411967_steve	Geneious	CDS	6052	6306	.	+	0	Name=vpu CDS;Parent=vpu
+AF411967_steve	Geneious	CDS	8811	9455	.	+	0	Name=nef CDS;Parent=nef
