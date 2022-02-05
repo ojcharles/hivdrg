@@ -17,11 +17,7 @@ add_resistance_info <-
     coding_df <- f.dat
     resistance = utils::read.csv(resistance_table, header = TRUE, as.is = TRUE)
     
-    # filter status - records on-revision may be below the data quality we expect, and are flagged.
-    resistance$change <- paste(resistance$gene, resistance$mutation, sep = "_")
-    resistance$phenotype = "Resistant"
-    
-    
+
     # merge resistance & mutation data
     if (all_muts == F) {
       coding_df_res <- base::merge(x = coding_df, y = resistance,

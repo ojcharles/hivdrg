@@ -25,7 +25,7 @@ call_resistance = function(infile = system.file("testdata",  "example.vcf", pack
   }
   
   global = list()
-  global$res_table = system.file("db", "resmuts.csv", package = "hivdrg")
+  global$res_table = system.file("db", "stanford_sav.csv", package = "hivdrg")
   #create unique session folder
   global$date <- format(Sys.time(), "%Y-%m-%d")
   global$dir = outdir
@@ -37,7 +37,7 @@ call_resistance = function(infile = system.file("testdata",  "example.vcf", pack
   
   dat1 = read_input(infile, global = global)
   ### annotate variants
-  dat2 <- annotate_variants(f.dat = dat1, global = global)
+  dat2 <- annotate_variants(dat1, global = global)
   
   ### add res info
   dat3 <- add_resistance_info(f.dat = dat2, resistance_table=global$res_table, all_muts = all_mutations)
@@ -48,3 +48,5 @@ call_resistance = function(infile = system.file("testdata",  "example.vcf", pack
   dat3$CDSID = NULL
   return(dat3)
 }
+
+infile = "inst/testdata/example.vcf"

@@ -2,15 +2,15 @@
 #'
 #' Adds genome annotation to the intermediate resistance data.frame
 #'
-#' @param f.dat intermediate data.frame
+#' @param dat1 intermediate data.frame
 #' @param global Package object for consistent runtime variables
 #' @return intermediate data.frame with genome level annotation
 #' 
 
-annotate_variants <- function(f.dat,global){
+annotate_variants <- function(dat1,global){
   # cannot handle ambiguous bases
-  f.dat = f.dat[f.dat$Var %in% c("A", "C", "G", "T"),]
-  toannotate <- f.dat
+  dat1 = dat1[dat1$Var %in% c("A", "C", "G", "T"),]
+  toannotate <- dat1
   check <- IRanges::IRanges(start=toannotate$Position, end=toannotate$Position, width=1)
   gr <- GenomicRanges::GRanges(seqnames = global$genome ,ranges=check)
   S4Vectors::values(gr) <- S4Vectors::DataFrame(id = toannotate$Sample, freq = toannotate$VarFreq, RefCount= toannotate$Ref.count, VarCount= toannotate$Var.count, VarAllele=toannotate$Var)

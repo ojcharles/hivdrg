@@ -51,7 +51,7 @@ read_input <- function(f.infile, global){
     
     for(i in 1:nrow(vcf)){#clean up vcf indel format to be as in varscan tab
       ref = vcf[i, col.ref]
-      var = vcf[i, col.var]
+      var = as.character(vcf[i, col.var])
       if(nchar(ref) > 1){#if deletion
         out.ref = var
         out.var = ref
