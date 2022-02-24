@@ -15,13 +15,11 @@
 #' @export
 
 
-call_resistance = function(infile = system.file("testdata",  "example.vcf", package = "hivdrg"), all_mutations = TRUE, ref = 5,  outdir = ""){
-  print("ref should be an integer between 1 and 5, used to identify the HIV reference genome below")
-  print(c("AG_L39106.1","C_AF067155.1","G_U88826.1", "JX239390.1","K03455.1"))
+call_resistance = function(infile = system.file("testdata",  "example.vcf", package = "hivdrg"), all_mutations = TRUE, ref_gff = "", ref_fasta = "",  outdir = ""){
   
   # checks
-  if(ref < 1 | ref > 6){
-    stop('ref not between 1 and r')
+  if(nchar(ref_gff) < 10 | nchar(ref_fasta) < 10){
+    stop('please define the reference gff and fasta files - also ensure a fasta.fai file is in the same directory as the fata genome')
   }
   
   global = list()
@@ -30,9 +28,11 @@ call_resistance = function(infile = system.file("testdata",  "example.vcf", pack
   global$date <- format(Sys.time(), "%Y-%m-%d")
   global$dir = outdir
   global$genome = c("AG_L39106.1","C_AF067155.1","G_U88826.1", "JX239390.1","K03455.1", "AF411967_steve")[ref]
-  global$path_gff3_file=system.file("ref", paste0(global$genome,".gff3"), package = "hivdrg")
-  global$path_fasta_file=system.file("ref", paste0(global$genome,".fasta"), package = "hivdrg")
-  global$path_txdb=system.file("ref", paste0(global$genome,".sqlite"), package = "hivdrg")
+  #global$path_gff3_file=system.file("ref", paste0(global$genome,".gff3"), package = "hivdrg")
+  #global$path_fasta_file=system.file("ref", paste0(global$genome,".fasta"), package = "hivdrg")
+  #global$path_txdb=system.file("ref", paste0(global$genome,".sqlite"), package = "hivdrg")
+  global$path_gff3_file = ref_gff
+  global$path_fasta_file = ref_fasta
   
   
   dat1 = read_input(infile, global = global)
